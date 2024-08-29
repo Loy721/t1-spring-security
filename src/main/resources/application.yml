@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: optional:file:.env[.properties]
   application:
     name: t1-spring-security
   datasource:
@@ -8,12 +10,14 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
     show-sql: true
+
+
 jwt:
-  secret: dbd951719cceec7cab72d41df46e3861bf374a5223a4b64caa3e94df8234956453a6fcbc73ad2866600ea7ac3aec067c26e05f1380631ef2efdd4b28102170635476883551704b8d8862436469c05d966d6c94ffceacd5192f4d266e03c824cb915a3d2276f5c6822575f462ad3118949990dc6773415ce564a5349bb26cfe5276275344edfd81c80ba322313afc9912d57987610d2364d1c6a6b2969f94ac04db8f0ffae793588e79b700126c5cda1c168289f4237fe22ce81aa07885e63ee5b0ca44a69798a2efa1d8c09ccd9871a22030854518478ba43617ab53d82ded2cd9743c4ed77bb633ece7e02fa5bc5d2dc64dd47b7f8eeab80cd25d5f60958af8
+  secret: ${JWT_SECRET}
   tokenExpiration: 10m
   refreshTokenExpiration: 100m

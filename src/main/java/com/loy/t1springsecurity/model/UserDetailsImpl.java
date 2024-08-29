@@ -1,17 +1,19 @@
 package com.loy.t1springsecurity.model;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
+@Data
 @RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
     private final User user;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return user.getRoles().stream().map(roleType -> new SimpleGrantedAuthority(roleType.getRoleType().name())).toList();

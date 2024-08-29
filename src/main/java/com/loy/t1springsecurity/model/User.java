@@ -2,7 +2,10 @@ package com.loy.t1springsecurity.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,7 +28,7 @@ public class User {//TODO not nulls
     @Column(name = "email", unique = true)
     private String email;
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany()
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),

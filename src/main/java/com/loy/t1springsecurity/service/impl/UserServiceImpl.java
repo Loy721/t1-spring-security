@@ -5,9 +5,11 @@ import com.loy.t1springsecurity.model.UserDetailsImpl;
 import com.loy.t1springsecurity.repository.UserRepository;
 import com.loy.t1springsecurity.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,8 +18,10 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = getUserByUsername(username);//TODO excep
+        Hibernate.initialize(user.getRoles());
         return new UserDetailsImpl(user);
     }
 

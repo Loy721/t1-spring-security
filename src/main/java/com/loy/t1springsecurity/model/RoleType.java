@@ -1,5 +1,6 @@
 package com.loy.t1springsecurity.model;
 
 public enum RoleType {
-    ADMIN, USER
+    ROLE_USER,
+    ROLE_ADMIN
 }

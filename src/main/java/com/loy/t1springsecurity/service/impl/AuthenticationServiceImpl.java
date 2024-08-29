@@ -8,7 +8,6 @@ import com.loy.t1springsecurity.model.dto.CreateUserRequest;
 import com.loy.t1springsecurity.model.dto.RefreshTokenRequest;
 import com.loy.t1springsecurity.model.dto.TokenResponse;
 import com.loy.t1springsecurity.model.dto.UsernamePasswordRequest;
-import com.loy.t1springsecurity.repository.UserRoleRepository;
 import com.loy.t1springsecurity.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +15,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,7 +41,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public void signUp(CreateUserRequest request) {
-        UserRole userRoleUer = userRoleService.getUserRoleByRoleType(RoleType.USER);
+        UserRole userRoleUer = userRoleService.getUserRoleByRoleType(RoleType.ROLE_USER);
         User user = User.builder().username(request.getUsername()).email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword())).roles(new HashSet<>(Set.of(userRoleUer))).build();
         userService.create(user);
