@@ -8,6 +8,7 @@ import com.loy.t1springsecurity.model.dto.CreateUserRequest;
 import com.loy.t1springsecurity.model.dto.RefreshTokenRequest;
 import com.loy.t1springsecurity.model.dto.TokenResponse;
 import com.loy.t1springsecurity.model.dto.UsernamePasswordRequest;
+import com.loy.t1springsecurity.model.exception.TokenExpiredException;
 import com.loy.t1springsecurity.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -51,7 +52,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public TokenResponse refresh(RefreshTokenRequest refreshTokenRequest) {
         RefreshToken refreshToken = refreshTokenService.getByValue(refreshTokenRequest.getRefreshToken());
         if (refreshTokenService.isTokenExpired(refreshToken))
-            throw new RuntimeException("ref tok exp");
+            throw new TokenExpiredException("Refresh token is expired");
         return new TokenResponse(jwtService.generateToken(refreshToken.getUser()), refreshTokenRequest.getRefreshToken());
     }
 }
