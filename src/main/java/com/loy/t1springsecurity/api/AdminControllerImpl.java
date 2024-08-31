@@ -12,6 +12,6 @@ public class AdminControllerImpl implements AdminController {
 
     @GetMapping("/hi")
     public String sayHi() {
-        return "User hi";
+        return "Admin hi";
     }
 }

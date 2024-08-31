@@ -1,7 +1,7 @@
 package com.loy.t1springsecurity.config;
 
 import com.loy.t1springsecurity.filter.JwtAuthenticationFilter;
-import com.loy.t1springsecurity.service.impl.UserServiceImpl;
+import com.loy.t1springsecurity.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final UserServiceImpl userDetailsService;
+    private final UserService userDetailsService;
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -50,7 +50,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return    http.csrf(AbstractHttpConfigurer::disable)
+        return http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/v1/auth/**").permitAll()
